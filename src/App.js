@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useCallback } from 'react'
 import TypeAhead from './components/TypeAhead'
 import _ from 'lodash'
 import './App.css'
@@ -9,34 +9,39 @@ function App () {
   const [searchTerm, setSearchTerm] = useState('')
   const [pills, setPills] = useState([])
 
-  const searchAction = ({ query }) => {
+  const searchAction = useCallback(({ query, pills }) => {
     const autoOptions = []
     fetch(`${api}&s=${query}`)
       .then(res => res.json())
       .then(
         ({ Search = [] }) => {
-          Search.map(
-            ({ Title: optionLabel, imdbID: optionId }) =>
+          Search.map(({ Title: optionLabel, imdbID: optionId }) => {
+            console.log(pills)
+            return (
               !pills.find(({ optionId: id }) => optionId === id) &&
               autoOptions.push({ optionId, optionLabel })
-          )
+            )
+          })
           setOptions(autoOptions)
         },
         error => {
           console.log(error)
         }
       )
-  }
+  }, [])
 
   const debounceSearch = useRef(
-    _.debounce(searchTerm => searchAction({ query: searchTerm }), 1000)
+    _.debounce(
+      (searchTerm, pills) => searchAction({ query: searchTerm, pills }),
+      1000
+    )
   )
 
   useEffect(() => {
     if (searchTerm) {
-      debounceSearch.current(searchTerm)
+      debounceSearch.current(searchTerm, pills)
     }
-  }, [searchTerm])
+  }, [searchTerm, pills])
 
   return (
     <div className='App'>

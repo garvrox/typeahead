@@ -31,3 +31,4 @@ Node version should be greater than 12.16.0
 1. **Node.js**
 2. **React**
 3. **Debounce** - A method used to optimise Search API
+4. **Hooks Used** - useEffect, useState, useRef, useCallback, memo
