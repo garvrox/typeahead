@@ -1,4 +1,4 @@
-# node-api system
+# React Typeahead
 
 This repo helps you set up a TypeAhead. 
 
