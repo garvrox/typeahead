@@ -1,0 +1,60 @@
+{
+  "name": "typeahead",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "lint-staged": "^10.0.8",
+    "prettier": "^1.19.1",
+    "prettier-standard": "^16.1.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1",
+    "standard": "^14.3.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint-staged": "./node_modules/.bin/lint-staged",
+    "lint:js": "node --es-module-specifier-resolution=node --experimental-modules ./node_modules/standard --fix ./**/*.js",
+    "precommit": "lint-staged"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "gh-pages": "^2.2.0",
+    "husky": "^0.14.3"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier-standard --print-width 100",
+      "node ./node_modules/standard --fix",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "engines": {
+    "node": ">=12.16.1"
+  }
+}
